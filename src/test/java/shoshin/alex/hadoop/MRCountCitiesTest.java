@@ -13,6 +13,7 @@ import org.apache.hadoop.mrunit.mapreduce.*;
 import org.junit.Before;
 import org.junit.Test;
 import shoshin.alex.data.MapErrors;
+import shoshin.alex.hadoop.io.CityOsWritable;
 
 /**
  *
@@ -20,8 +21,8 @@ import shoshin.alex.data.MapErrors;
  */
 public class MRCountCitiesTest {
     private static final String CITIES_FILE = "cities.testData";
-    private MapDriver<LongWritable, Text, Text, IntWritable> mapDriver;
-    private ReduceDriver<Text, IntWritable, Text, IntWritable> reduceDriver;
+    private MapDriver<LongWritable, Text, CityOsWritable, IntWritable> mapDriver;
+    private ReduceDriver<CityOsWritable, IntWritable, CityOsWritable, IntWritable> reduceDriver;
     private String[] dataSet;
     
     @Before
@@ -54,12 +55,12 @@ public class MRCountCitiesTest {
     @Test
     public void mapper_should_join_city_name_by_id() throws IOException {
         mapDriver.withInput(new LongWritable(1), new Text(dataSet[0]));
-        mapDriver.withOutput(new Text("city1"), new IntWritable(1));
+        mapDriver.withOutput(new CityOsWritable("city1", "Windows"), new IntWritable(1));
         mapDriver.runTest();
     }
     
     @Test
-    public void mapper_count_corrupted_input() throws IOException {
+    public void mapper_should_count_corrupted_input() throws IOException {
         mapDriver.withInput(new LongWritable(1), new Text(dataSet[2]));
         mapDriver.withCounter(MapErrors.WRONG_LOG_FORMAT, 1);
         mapDriver.runTest();
@@ -69,7 +70,7 @@ public class MRCountCitiesTest {
     public void mapper_should_filter_low_price_records() throws IOException {
         mapDriver.withInput(new LongWritable(1), new Text(dataSet[0]));
         mapDriver.withInput(new LongWritable(1), new Text(dataSet[1]));
-        mapDriver.withOutput(new Text("city1"), new IntWritable(1));
+        mapDriver.withOutput(new CityOsWritable("city1", "Windows"), new IntWritable(1));
         mapDriver.runTest();
     }
     
@@ -78,8 +79,8 @@ public class MRCountCitiesTest {
         List<IntWritable> citiesCount = new ArrayList<>();
         citiesCount.add(new IntWritable(1));
         citiesCount.add(new IntWritable(3));
-        reduceDriver.withInput(new Text("city"), citiesCount);
-        reduceDriver.withOutput(new Text("city"), new IntWritable(4));
+        reduceDriver.withInput(new CityOsWritable("city1", "Windows"), citiesCount);
+        reduceDriver.withOutput(new CityOsWritable("city1", "Windows"), new IntWritable(4));
         reduceDriver.runTest();
     }
 }

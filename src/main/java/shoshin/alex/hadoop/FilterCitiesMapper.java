@@ -8,13 +8,14 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.Mapper;
 import shoshin.alex.data.BiddingLog;
 import shoshin.alex.data.MapErrors;
+import shoshin.alex.hadoop.io.CityOsWritable;
 import shoshin.alex.io.KeyValueReader;
 
 /**
  *
  * @author Alexander_Shoshin
  */
-public class FilterCitiesMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class FilterCitiesMapper extends Mapper<LongWritable, Text, CityOsWritable, IntWritable> {
     Map<String, String> cityNames;
     private static final int MIN_PRICE = 250;
     private static final IntWritable one = new IntWritable(1);
@@ -35,7 +36,7 @@ public class FilterCitiesMapper extends Mapper<LongWritable, Text, Text, IntWrit
             if (log.getBidPrice() > MIN_PRICE) {
                 String cityName = cityNames.get(log.getCityId());
                 if (cityName != null) {
-                    context.write(new Text(cityName), one);
+                    context.write(new CityOsWritable(cityName, log.getOSFamily()), one);
                 }
             }
         } catch (IllegalArgumentException exception) {

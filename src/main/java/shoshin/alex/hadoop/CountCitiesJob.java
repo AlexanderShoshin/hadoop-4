@@ -11,6 +11,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
+import shoshin.alex.hadoop.io.CityOsWritable;
 
 public class CountCitiesJob extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
@@ -24,7 +25,7 @@ public class CountCitiesJob extends Configured implements Tool {
         job.addCacheFile(new Path(args[2]).toUri());
         job.setJobName("highBidPricedCities");
         job.setJarByClass(CountCitiesJob.class);
-        job.setOutputKeyClass(Text.class);
+        job.setOutputKeyClass(CityOsWritable.class);
         job.setOutputValueClass(IntWritable.class);
         job.setMapperClass(FilterCitiesMapper.class);
         job.setReducerClass(CountCitiesReducer.class);
