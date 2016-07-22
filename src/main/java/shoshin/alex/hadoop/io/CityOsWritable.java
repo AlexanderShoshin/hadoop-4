@@ -1,7 +1,6 @@
 package shoshin.alex.hadoop.io;
 
 import com.google.common.collect.ComparisonChain;
-import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;

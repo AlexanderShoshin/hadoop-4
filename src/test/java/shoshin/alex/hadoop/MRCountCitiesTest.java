@@ -13,6 +13,7 @@ import org.apache.hadoop.mrunit.mapreduce.*;
 import org.junit.Before;
 import org.junit.Test;
 import shoshin.alex.data.MapErrors;
+import shoshin.alex.data.OS;
 import shoshin.alex.hadoop.io.CityOsWritable;
 
 /**
@@ -55,7 +56,7 @@ public class MRCountCitiesTest {
     @Test
     public void mapper_should_join_city_name_by_id() throws IOException {
         mapDriver.withInput(new LongWritable(1), new Text(dataSet[0]));
-        mapDriver.withOutput(new CityOsWritable("city1", "Windows"), new IntWritable(1));
+        mapDriver.withOutput(new CityOsWritable("city1", OS.WINDOWS.name()), new IntWritable(1));
         mapDriver.runTest();
     }
     
@@ -70,7 +71,7 @@ public class MRCountCitiesTest {
     public void mapper_should_filter_low_price_records() throws IOException {
         mapDriver.withInput(new LongWritable(1), new Text(dataSet[0]));
         mapDriver.withInput(new LongWritable(1), new Text(dataSet[1]));
-        mapDriver.withOutput(new CityOsWritable("city1", "Windows"), new IntWritable(1));
+        mapDriver.withOutput(new CityOsWritable("city1", OS.WINDOWS.name()), new IntWritable(1));
         mapDriver.runTest();
     }
     
@@ -79,8 +80,8 @@ public class MRCountCitiesTest {
         List<IntWritable> citiesCount = new ArrayList<>();
         citiesCount.add(new IntWritable(1));
         citiesCount.add(new IntWritable(3));
-        reduceDriver.withInput(new CityOsWritable("city1", "Windows"), citiesCount);
-        reduceDriver.withOutput(new CityOsWritable("city1", "Windows"), new IntWritable(4));
+        reduceDriver.withInput(new CityOsWritable("city1", OS.WINDOWS.name()), citiesCount);
+        reduceDriver.withOutput(new CityOsWritable("city1", OS.WINDOWS.name()), new IntWritable(4));
         reduceDriver.runTest();
     }
 }

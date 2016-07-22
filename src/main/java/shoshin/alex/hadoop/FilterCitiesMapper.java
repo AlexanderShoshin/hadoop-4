@@ -36,7 +36,7 @@ public class FilterCitiesMapper extends Mapper<LongWritable, Text, CityOsWritabl
             if (log.getBidPrice() > MIN_PRICE) {
                 String cityName = cityNames.get(log.getCityId());
                 if (cityName != null) {
-                    context.write(new CityOsWritable(cityName, log.getOSFamily()), one);
+                    context.write(new CityOsWritable(cityName, log.getOS().name()), one);
                 }
             }
         } catch (IllegalArgumentException exception) {
