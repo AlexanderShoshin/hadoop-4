@@ -29,10 +29,11 @@ public class CountCitiesJob extends Configured implements Tool {
         job.setOutputValueClass(IntWritable.class);
         job.setMapperClass(FilterCitiesMapper.class);
         job.setReducerClass(CountCitiesReducer.class);
-        job.setCombinerClass(CountCitiesReducer.class);
+        job.setCombinerClass(CountCitiesCombiner.class);
         job.setInputFormatClass(TextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
-        job.setNumReduceTasks(1);
+        job.setPartitionerClass(OSPartitioner.class);
+        job.setNumReduceTasks(2);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));

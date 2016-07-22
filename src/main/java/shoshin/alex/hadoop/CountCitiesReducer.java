@@ -9,7 +9,7 @@ import shoshin.alex.hadoop.io.CityOsWritable;
  *
  * @author Alexander_Shoshin
  */
-public class CountCitiesReducer extends Reducer<CityOsWritable, IntWritable, CityOsWritable, IntWritable> {
+public class CountCitiesReducer extends Reducer<CityOsWritable, IntWritable, Text, IntWritable> {
     @Override
     public void reduce(CityOsWritable key, Iterable<IntWritable> values, CountCitiesReducer.Context context)
             throws IOException, InterruptedException {
@@ -17,6 +17,6 @@ public class CountCitiesReducer extends Reducer<CityOsWritable, IntWritable, Cit
         for (IntWritable val : values) {
             sum += val.get();
         }
-        context.write(key, new IntWritable(sum));
+        context.write(new Text(key.getCity()), new IntWritable(sum));
     }
 }

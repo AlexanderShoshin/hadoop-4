@@ -2,6 +2,7 @@ package shoshin.alex.hadoop.io;
 
 import com.google.common.collect.ComparisonChain;
 import org.apache.hadoop.io.WritableComparable;
+import shoshin.alex.data.OS;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -12,13 +13,13 @@ import java.io.IOException;
  */
 public class CityOsWritable implements WritableComparable<CityOsWritable> {
     private String city;
-    private String os;
+    private OS os;
 
     public CityOsWritable() {
-        this("", "");
+        this("", OS.WINDOWS);
     }
 
-    public CityOsWritable(String city, String os) {
+    public CityOsWritable(String city, OS os) {
         this.city = city;
         this.os = os;
     }
@@ -26,32 +27,27 @@ public class CityOsWritable implements WritableComparable<CityOsWritable> {
     @Override
     public void write(DataOutput dataOutput) throws IOException {
         dataOutput.writeUTF(city);
-        dataOutput.writeUTF(os);
+        dataOutput.writeUTF(os.name());
     }
 
     @Override
     public void readFields(DataInput dataInput) throws IOException {
         city = dataInput.readUTF();
-        os = dataInput.readUTF();
+        os = OS.valueOf(dataInput.readUTF());
     }
 
     public String getCity() {
         return city;
     }
 
-    public String getOs() {
+    public OS getOs() {
         return os;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%1$s: %2$s", city, os);
     }
 
     @Override
     public boolean equals(Object obj) {
         CityOsWritable comparable = (CityOsWritable) obj;
-        return city.equals(comparable.city) && os.equals(comparable.os);
+        return city.equals(comparable.city) && os == comparable.os;
     }
 
     @Override
