@@ -3,7 +3,6 @@ package shoshin.alex.hadoop;
 import org.apache.hadoop.conf.*;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
@@ -12,9 +11,11 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import shoshin.alex.hadoop.io.CityOsWritable;
+import shoshin.alex.utils.Args;
 
 public class CountCitiesJob extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
+        new Args("Dataset directory path", "Output directory path", "Cities file path").checkInput(args);
         int res = ToolRunner.run(new Configuration(), new CountCitiesJob(), args);
         System.exit(res);
     }
