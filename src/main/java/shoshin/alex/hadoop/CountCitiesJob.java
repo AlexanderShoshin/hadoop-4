@@ -15,7 +15,7 @@ import shoshin.alex.utils.Args;
 
 public class CountCitiesJob extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
-        new Args("Dataset directory path", "Output directory path", "Cities file path").checkInput(args);
+        Args.checkInput(args, "Dataset directory path", "Output directory path", "Cities file path");
         int res = ToolRunner.run(new Configuration(), new CountCitiesJob(), args);
         System.exit(res);
     }
