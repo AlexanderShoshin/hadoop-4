@@ -8,10 +8,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author Alexander_Shoshin
- */
 public class KeyValueReader {
     private static final String fieldSeparator = "\\s";
     

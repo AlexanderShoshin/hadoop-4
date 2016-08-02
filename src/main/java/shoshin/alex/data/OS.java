@@ -1,8 +1,5 @@
 package shoshin.alex.data;
 
-/**
- * Created by Administrator on 22.07.2016.
- */
 public enum OS {
     WINDOWS, OTHER;
 

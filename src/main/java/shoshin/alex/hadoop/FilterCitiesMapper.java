@@ -11,10 +11,6 @@ import shoshin.alex.data.MapErrors;
 import shoshin.alex.hadoop.io.CityOsWritable;
 import shoshin.alex.io.KeyValueReader;
 
-/**
- *
- * @author Alexander_Shoshin
- */
 public class FilterCitiesMapper extends Mapper<LongWritable, Text, CityOsWritable, IntWritable> {
     Map<String, String> cityNames;
     private static final int MIN_PRICE = 250;

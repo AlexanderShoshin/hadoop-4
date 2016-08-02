@@ -5,9 +5,6 @@ import org.apache.hadoop.mapreduce.Partitioner;
 import shoshin.alex.data.OS;
 import shoshin.alex.hadoop.io.CityOsWritable;
 
-/**
- * Created by Administrator on 22.07.2016.
- */
 public class OSPartitioner extends Partitioner<CityOsWritable, IntWritable>
 {
     @Override

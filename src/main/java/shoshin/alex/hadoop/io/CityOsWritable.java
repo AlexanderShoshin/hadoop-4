@@ -8,9 +8,6 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-/**
- * Created by Administrator on 22.07.2016.
- */
 public class CityOsWritable implements WritableComparable<CityOsWritable> {
     private String city;
     private OS os;

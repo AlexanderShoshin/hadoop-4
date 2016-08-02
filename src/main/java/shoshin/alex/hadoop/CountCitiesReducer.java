@@ -5,10 +5,6 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.Reducer;
 import shoshin.alex.hadoop.io.CityOsWritable;
 
-/**
- *
- * @author Alexander_Shoshin
- */
 public class CountCitiesReducer extends Reducer<CityOsWritable, IntWritable, Text, IntWritable> {
     @Override
     public void reduce(CityOsWritable key, Iterable<IntWritable> values, CountCitiesReducer.Context context)

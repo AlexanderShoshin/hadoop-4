@@ -7,9 +7,6 @@ import shoshin.alex.hadoop.io.CityOsWritable;
 
 import java.io.IOException;
 
-/**
- * Created by Administrator on 23.07.2016.
- */
 public class CountCitiesCombiner extends Reducer<CityOsWritable, IntWritable, CityOsWritable, IntWritable> {
     @Override
     public void reduce(CityOsWritable key, Iterable<IntWritable> values, CountCitiesCombiner.Context context)
